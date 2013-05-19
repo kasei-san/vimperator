@@ -1,0 +1,125 @@
+"-------------------------------------------------------------------------------
+" memo {{{
+"------------------------------------------------------------------------------
+" 矢印キー名は、<Left>みたいに先頭大文字にしないと認識されない
+
+" キーボードで範囲選択
+" i : キャレットモード
+" v : その後ビジュアルモードで範囲選択
+"}}}
+
+"-------------------------------------------------------------------------------
+" basic {{{
+"------------------------------------------------------------------------------
+set complete=slS
+
+"検索は大文字/小文字無視
+set ignorecase smartcase
+
+"ページロード時にテキストボックスにフォーカスするのを防ぐ
+set focuscontent
+
+" スクロールバーは出す
+" set guioptions=rb
+
+"}}}
+
+"-------------------------------------------------------------------------------
+" keymap {{{
+"------------------------------------------------------------------------------
+"undo履歴開く
+map U :undo<Space>
+
+"バッファ一覧
+map . :ls<CR>
+
+",rで.vimperatorrcをリロード
+map ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
+
+"j,kの移動量を拡張
+noremap j 3j
+noremap k 3k
+
+"BackSpaceでも戻る
+map <BS> <a-Left>
+
+"左右キーでタブ移動
+map <Left> gT
+map <Right> gt
+
+"h,lもタブ移動にしてみる
+map l gt
+map h gT
+
+"Shift+左右キーでタブ位置変更
+map <S-Right> :tabmove! +1<CR>
+map <S-Left> :tabmove! -1<CR>
+
+"Alt+上下でメニューのtoggle
+map <A-Down> :set gui<CR>
+map <A-Up> :set gui<CR>
+
+"<C-c>で選択範囲をコピー
+map <C-c> :echo 'Yank!'<CR>Y
+
+"hint にアルファベットを使う
+set hintchars=ifjklasdhguonmerwc
+
+"ZZ でquitしたくない
+noremap ZZ <NOP>
+
+"LDR で、余計なスタイルを消す
+autocmd DOMLoad 'reader\.livedoor\.com/reader' :js (function(){var hidden = function(id){var dom=gBrowser.contentDocument.getElementById(id); dom.style.visibility="hidden"; dom.style.height=0;}; hidden("header"); hidden("menu"); hidden("control");})();
+
+"}}}
+
+"-------------------------------------------------------------------------------
+" qmark {{{
+"-------------------------------------------------------------------------------
+noremap go gn
+qmark g gmail
+qmark r redmine
+qmark p poket
+qmark c cybozu
+"}}}
+"
+"-------------------------------------------------------------------------------
+" プラグイン {{{
+"-------------------------------------------------------------------------------
+"copy.js
+javascript <<EOM
+liberator.globalVariables.copy_templates = [
+  {label:'Url', value:'%URL%'},
+  {label:'TitleAndUrl', value:'%TITLE% %URL%'},
+  {label:'hatena', value:'[%URL%:title=%TITLE%]'},
+  {label:'wiki', value:'[[%TITLE%|%URL%]]'},
+  {label:'redmine', value:'"%TITLE%":%URL%'},
+  {label:'Title', value:'%TITLE%'},
+  {label:'HTML', value:'<a href=%URL%>%TITLE%</a>'} 
+]
+EOM
+
+noremap <C-h> :copy hatena<CR><CR>
+noremap <C-w> :copy wiki<CR><CR>
+noremap <C-r> :copy redmine<CR><CR>
+
+"feedSomeKey_3.js
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+lazy fmaps -u='mail\.google\.com/mail' j k n
+lazy fmaps -u='http://reader\.livedoor\.com/reader/' j k s <Space>
+
+"my original plugin
+javascript <<EOM
+//addUserCommandでコマンドを登録
+//第1引数にコマンド、第2引数に簡易説明、第3引数に実行するfunctionを渡す
+commands.addUserCommand(
+    ['is[sue]'],
+    'open issue',
+    function(no) {
+      gBrowser.selectedTab = gBrowser.addTab("http://sv01.feedforce.jp/redmine/issues/" + no);
+    },
+    {},
+    true // 上書き可否
+);
+EOM
+"}}}
