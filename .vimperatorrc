@@ -18,10 +18,6 @@ set ignorecase smartcase
 
 "ページロード時にテキストボックスにフォーカスするのを防ぐ
 set focuscontent
-
-" スクロールバーは出す
-" set guioptions=rb
-
 "}}}
 
 "-------------------------------------------------------------------------------
@@ -35,10 +31,6 @@ map . :ls<CR>
 
 ",rで.vimperatorrcをリロード
 map ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
-
-"j,kの移動量を拡張
-noremap j 3j
-noremap k 3k
 
 "BackSpaceでも戻る
 map <BS> <a-Left>
@@ -107,19 +99,6 @@ noremap <C-r> :copy redmine<CR><CR>
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' j k n
 lazy fmaps -u='http://reader\.livedoor\.com/reader/' j k s <Space>
-
-"my original plugin
-javascript <<EOM
-//addUserCommandでコマンドを登録
-//第1引数にコマンド、第2引数に簡易説明、第3引数に実行するfunctionを渡す
-commands.addUserCommand(
-    ['is[sue]'],
-    'open issue',
-    function(no) {
-      gBrowser.selectedTab = gBrowser.addTab("http://sv01.feedforce.jp/redmine/issues/" + no);
-    },
-    {},
-    true // 上書き可否
-);
-EOM
 "}}}
+
+source ~/vimperator/private
