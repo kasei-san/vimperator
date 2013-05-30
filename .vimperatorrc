@@ -78,6 +78,9 @@ qmark c cybozu
 "-------------------------------------------------------------------------------
 " プラグイン {{{
 "-------------------------------------------------------------------------------
+"プラグイン読み込み後に実行するコマンド(lazy)を定義
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+
 "copy.js
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
@@ -96,9 +99,12 @@ noremap <C-w> :copy wiki<CR><CR>
 noremap <C-r> :copy redmine<CR><CR>
 
 "feedSomeKey_3.js
-command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' j k n
 lazy fmaps -u='http://reader\.livedoor\.com/reader/' j k s <Space>
+
+"alias.js
+lazy alias g gsearch
+
 "}}}
 
 source ~/vimperator/private
