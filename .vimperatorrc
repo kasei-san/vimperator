@@ -83,7 +83,11 @@ command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 
 "plugin-loader
 javascript <<EOM
-liberator.globalVariables.plugin_loader_roots = "~/.vimperator/vimperator-plugins/";
+liberator.globalVariables.plugin_loader_roots = [
+  '~/.vimperator/vimperator-plugins/',
+  '~/.vimperator/local_plugins/'
+].join(' ');
+
 liberator.globalVariables.plugin_loader_plugins = [
   '_libly',
   '_smooziee',
@@ -91,8 +95,10 @@ liberator.globalVariables.plugin_loader_plugins = [
   'copy',
   'feedSomeKeys_3',
   'google-search',
-  'multi_requester'
-]
+  'multi_requester',
+  // https://gist.github.com/kasei-san/5675690
+  'fms_switcher'
+];
 EOM
 
 "copy.js
