@@ -81,6 +81,20 @@ qmark c cybozu
 "プラグイン読み込み後に実行するコマンド(lazy)を定義
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 
+"plugin-loader
+javascript <<EOM
+liberator.globalVariables.plugin_loader_roots = "~/.vimperator/vimperator-plugins/";
+liberator.globalVariables.plugin_loader_plugins = [
+  '_libly',
+  '_smooziee',
+  'alias',
+  'copy',
+  'feedSomeKeys_3',
+  'google-search',
+  'multi_requester'
+]
+EOM
+
 "copy.js
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
@@ -107,4 +121,4 @@ lazy alias g gsearch
 
 "}}}
 
-source ~/vimperator/private
+source ~/.vimperator/private
