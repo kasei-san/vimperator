@@ -18,6 +18,9 @@ set ignorecase smartcase
 
 "ページロード時にテキストボックスにフォーカスするのを防ぐ
 set focuscontent
+
+" ctrl-i でエディタ起動
+set editor='/usr/local/bin/mvim -f'
 "}}}
 
 "-------------------------------------------------------------------------------
@@ -96,27 +99,26 @@ liberator.globalVariables.plugin_loader_plugins = [
   'feedSomeKeys_3',
   'google-search',
   'multi_requester',
-  // https://gist.github.com/kasei-san/5675690
-  'fms_switcher'
+  // via : https://gist.github.com/kasei-san/5675690
+  'fms_switcher',
+  // via : http://code.google.com/p/vimperator-labs/issues/detail?id=14
+  'firebug'
 ];
 EOM
 
 "copy.js
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-  {label:'Url', value:'%URL%'},
-  {label:'TitleAndUrl', value:'%TITLE% %URL%'},
-  {label:'hatena', value:'[%URL%:title=%TITLE%]'},
-  {label:'wiki', value:'[[%TITLE%|%URL%]]'},
-  {label:'redmine', value:'"%TITLE%":%URL%'},
-  {label:'Title', value:'%TITLE%'},
-  {label:'HTML', value:'<a href=%URL%>%TITLE%</a>'} 
+  {label:'Url'          ,value:'%URL%'}                 ,
+  {label:'TitleAndUrl'  ,value:'%TITLE% %URL%'}         ,
+  {label:'hatena'       ,value:'[%URL%:title=%TITLE%]'} ,
+  {label:'wiki'         ,value:'[[%TITLE%|%URL%]]'}     ,
+  {label:'redmine'      ,value:'"%TITLE%":%URL%'}       ,
+  {label:'github'       ,value:'[%TITLE%](%URL%)'}      ,
+  {label:'qiita'        ,value:'[%TITLE%](%URL%)'}      ,
+  {label:'Title'        ,value:'%TITLE%'}               ,
 ]
 EOM
-
-noremap <C-h> :copy hatena<CR><CR>
-noremap <C-w> :copy wiki<CR><CR>
-noremap <C-r> :copy redmine<CR><CR>
 
 "feedSomeKey_3.js
 lazy fmaps -u='mail\.google\.com/mail' j k n
